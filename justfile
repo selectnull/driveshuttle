@@ -1,4 +1,4 @@
-# Build for a uname platform (Darwin or Linux); build both when omitted.
+# Build for darwin or linux; build both when omitted.
 build target="":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -15,10 +15,10 @@ build target="":
     }
 
     case "{{target}}" in
-        Darwin)
+        darwin)
             build_macos
             ;;
-        Linux)
+        linux)
             build_linux
             ;;
         "")
@@ -26,7 +26,7 @@ build target="":
             build_linux
             ;;
         *)
-            echo "Usage: just build [Darwin|Linux]" >&2
+            echo "Usage: just build [darwin|linux]" >&2
             exit 2
             ;;
     esac
