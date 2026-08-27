@@ -1,4 +1,4 @@
-module github.com/example/backdrive
+module github.com/example/driveshuttle
 
 go 1.23.0
 

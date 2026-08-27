@@ -1,4 +1,4 @@
-// backdrive uploads files to and downloads files from Google Drive folders.
+// DriveShuttle uploads files to and downloads files from Google Drive folders.
 package main
 
 import (
@@ -26,7 +26,7 @@ import (
 	"google.golang.org/api/option"
 )
 
-const appName = "backdrive"
+const appName = "driveshuttle"
 
 type configFile struct {
 	Credentials json.RawMessage `json:"credentials"`
@@ -73,19 +73,19 @@ func main() {
 		os.Exit(2)
 	}
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "backdrive:", err)
+		fmt.Fprintln(os.Stderr, "driveshuttle:", err)
 		os.Exit(1)
 	}
 }
 
 func usage() {
 	fmt.Fprintln(os.Stderr, `Usage:
-  backdrive auth [CLIENT_SECRET.json]
-  backdrive dl FOLDER_ID FILE_PATTERN
-  backdrive ul FOLDER_ID FILE_PATTERN
+  driveshuttle auth [CLIENT_SECRET.json]
+  driveshuttle dl FOLDER_ID FILE_PATTERN
+  driveshuttle ul FOLDER_ID FILE_PATTERN
 
 Quote FILE_PATTERN to prevent your shell from expanding it, e.g. '*.mkv'.
-Run "backdrive auth" once before uploading or downloading.`)
+Run "driveshuttle auth" once before uploading or downloading.`)
 }
 
 // configPath is always the XDG config location. The XDG standard uses
@@ -187,7 +187,7 @@ func getToken(ctx context.Context, conf *oauth2.Config) (*oauth2.Token, error) {
 	conf = &localConf
 	conf.RedirectURL = "http://" + listener.Addr().String() + "/"
 	url := conf.AuthCodeURL(state, oauth2.AccessTypeOffline, oauth2.ApprovalForce)
-	fmt.Println("Open this URL in a browser to authorize backdrive:\n" + url)
+	fmt.Println("Open this URL in a browser to authorize DriveShuttle:\n" + url)
 	if err := openBrowser(url); err != nil {
 		fmt.Fprintln(os.Stderr, "Could not open a browser; open the URL above manually.")
 	}
@@ -265,7 +265,7 @@ func service(ctx context.Context) (*drive.Service, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("not authorized; run: backdrive auth")
+			return nil, fmt.Errorf("not authorized; run: driveshuttle auth")
 		}
 		return nil, fmt.Errorf("read config: %w", err)
 	}
@@ -340,7 +340,7 @@ func downloadOne(svc *drive.Service, file *drive.File) error {
 		return fmt.Errorf("download %q: %w", file.Name, err)
 	}
 	defer response.Body.Close()
-	tmp, err := os.CreateTemp(".", ".backdrive-*")
+	tmp, err := os.CreateTemp(".", ".driveshuttle-*")
 	if err != nil {
 		return err
 	}
