@@ -89,3 +89,7 @@ just clean
 
 On Linux, browser launching uses `xdg-open`; if unavailable, copy the
 authorization URL printed by `driveshuttle auth` into a browser yourself.
+
+## LICENSE
+
+MIT licensed. This tool was vibe coded and as such is pretty much worthless.
