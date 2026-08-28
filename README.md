@@ -47,11 +47,13 @@ has access).
 
 ```sh
 # Download remote .mkv files in Drive folder FOLDER_ID into the current directory
-driveshuttle dl FOLDER_ID '*.mkv'
+driveshuttle download FOLDER_ID '*.mkv'
 
 # Upload matching regular local files to that Drive folder
-driveshuttle ul FOLDER_ID '*.mkv'
+driveshuttle upload FOLDER_ID '*.mkv'
 ```
+
+`dl` and `ul` are short aliases for `download` and `upload`, respectively.
 
 Get `FOLDER_ID` from the Drive folder URL:
 `https://drive.google.com/drive/folders/FOLDER_ID`. Quote patterns so the shell

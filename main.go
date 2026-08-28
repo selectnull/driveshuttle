@@ -52,13 +52,13 @@ func main() {
 			credentialsPath = os.Args[2]
 		}
 		err = authenticate(ctx, credentialsPath)
-	case "dl":
+	case "dl", "download":
 		if len(os.Args) != 4 {
 			usage()
 			os.Exit(2)
 		}
 		err = download(ctx, os.Args[2], os.Args[3])
-	case "ul":
+	case "ul", "upload":
 		if len(os.Args) != 4 {
 			usage()
 			os.Exit(2)
@@ -81,8 +81,8 @@ func main() {
 func usage() {
 	fmt.Fprintln(os.Stderr, `Usage:
   driveshuttle auth [CLIENT_SECRET.json]
-  driveshuttle dl FOLDER_ID FILE_PATTERN
-  driveshuttle ul FOLDER_ID FILE_PATTERN
+  driveshuttle download FOLDER_ID FILE_PATTERN  (alias: dl)
+  driveshuttle upload FOLDER_ID FILE_PATTERN    (alias: ul)
 
 Quote FILE_PATTERN to prevent your shell from expanding it, e.g. '*.mkv'.
 Run "driveshuttle auth" once before uploading or downloading.`)
