@@ -27,6 +27,18 @@ has access).
    cannot open one, copy the displayed URL into a browser. When no JSON
    filename is supplied, it prompts for the client ID and secret.
 
+   If DriveShuttle is running on a remote server and its localhost callback is
+   not exposed to the internet, run this on your local machine before opening
+   the authorization URL (replace `PORT` with the port in that URL and `HOST`
+   with the server):
+
+   ```sh
+   ssh -N -L PORT:127.0.0.1:PORT HOST
+   ```
+
+   The OAuth redirect through local `127.0.0.1:PORT` will then be forwarded to
+   the server.
+
    The OAuth client configuration and refresh token are saved with permissions
    `0600` at `$XDG_CONFIG_HOME/driveshuttle/config`; when `XDG_CONFIG_HOME` is
    unset, the standard XDG default is `~/.config/driveshuttle/config`.
